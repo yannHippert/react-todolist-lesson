@@ -8,7 +8,7 @@ import './Navigation.css';
 const menuItems = [
     { key: '/todo-list-basic', label: 'Basic' },
     { key: '/todo-list-with-design', label: 'With design' },
-    { key: '/todo-list-drag-and-drop', label: 'Drag and drop' },
+    { key: '/todo-list-edit', label: 'Edit' },
     { key: '/todo-list-redux', label: 'Redux' },
 ];
 

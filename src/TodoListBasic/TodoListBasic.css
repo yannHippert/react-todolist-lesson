@@ -1,0 +1,16 @@
+.todo-list-basic {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 8px;
+}
+
+.todo-list-basic-add {
+    display: flex;
+    gap: 16px;
+}
+
+.todo-list-basic-columns {
+    display: flex;
+    gap: 16px;
+}
