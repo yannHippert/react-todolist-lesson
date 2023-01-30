@@ -57,7 +57,7 @@ const TodoListWidthDesign = () => {
     setIsAddItemModalOpen(true);
   };
 
-  const handleConfirmAddItem = ({ categoryName, item }: { categoryName: string; item: IItem }): boolean => {
+  const handleAddItem = ({ categoryName, item }: { categoryName: string; item: IItem }): boolean => {
     if (item.name.trim().length < 1) {
       showError('The name of an item can not be empty!');
       return false;
@@ -114,7 +114,7 @@ const TodoListWidthDesign = () => {
         onCancel={() => {
           setIsAddItemModalOpen(false);
         }}
-        onConfirm={handleConfirmAddItem}
+        onConfirm={handleAddItem}
       />
 
       <AddCategoryModal

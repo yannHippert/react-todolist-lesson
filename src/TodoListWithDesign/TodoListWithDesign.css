@@ -8,3 +8,11 @@
 .space-flex {
   justify-content: space-evenly;
 }
+
+.list-item button {
+  opacity: 0;
+}
+
+.list-item:hover button {
+  opacity: 1;
+}
