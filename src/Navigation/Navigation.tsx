@@ -6,38 +6,33 @@ import { MenuInfo } from 'rc-menu/lib/interface';
 import './Navigation.css';
 
 const menuItems = [
-    { key: '/todo-list-basic', label: 'Basic' },
-    { key: '/todo-list-with-design', label: 'With design' },
-    { key: '/todo-list-edit', label: 'Edit' },
-    { key: '/todo-list-redux', label: 'Redux' },
+  { key: '/todo-list-basic', label: 'Basic' },
+  { key: '/todo-list-with-design', label: 'With design' },
+  { key: '/todo-list-edit', label: 'Edit' },
+  { key: '/todo-list-redux', label: 'Redux' },
+  { key: '/todo-list-redux-dnd', label: 'DND' }
 ];
 
 const Navigation = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [selectedKey, setSelectedKey] = useState<string[]>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [selectedKey, setSelectedKey] = useState<string[]>();
 
-    useEffect(() => {
-        setSelectedKey([location.pathname]);
-    }, [location]);
+  useEffect(() => {
+    setSelectedKey([location.pathname]);
+  }, [location]);
 
-    const handleOnClick = ({ key }: MenuInfo) => {
-        navigate(key);
-    };
+  const handleOnClick = ({ key }: MenuInfo) => {
+    navigate(key);
+  };
 
-    return (
-        <Layout className="layout">
-            <Header>
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    selectedKeys={selectedKey}
-                    items={menuItems}
-                    onClick={handleOnClick}
-                />
-            </Header>
-        </Layout>
-    );
+  return (
+    <Layout className="layout">
+      <Header>
+        <Menu theme="dark" mode="horizontal" selectedKeys={selectedKey} items={menuItems} onClick={handleOnClick} />
+      </Header>
+    </Layout>
+  );
 };
 
 export default Navigation;

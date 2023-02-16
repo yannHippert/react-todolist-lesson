@@ -6,20 +6,34 @@ import TodoListEdit from './TodoListEdit';
 import TodoListWithDesign from './TodoListWithDesign';
 import TodoListRedux from './TodoListRedux';
 import { Provider } from 'react-redux';
-import store from './TodoListRedux/redux/store';
+import TodoListReduxStore from './TodoListRedux/redux/store';
+import TodoListReduxDndStore from './TodoListReduxDnd/redux/store';
 
 const App = () => (
   <div className="app">
-    <Provider store={store}>
-      <Navigation />
-      <Routes>
-        <Route path="/todo-list-basic" element={<TodoListBasic />} />
-        <Route path="/todo-list-with-design" element={<TodoListWithDesign />} />
-        <Route path="/todo-list-edit" element={<TodoListEdit />} />
-        <Route path="/todo-list-redux" element={<TodoListRedux />} />
-        <Route path="*" element={<Navigate to="/todo-list-basic" />} />
-      </Routes>
-    </Provider>
+    <Navigation />
+    <Routes>
+      <Route path="/todo-list-basic" element={<TodoListBasic />} />
+      <Route path="/todo-list-with-design" element={<TodoListWithDesign />} />
+      <Route path="/todo-list-edit" element={<TodoListEdit />} />
+      <Route
+        path="/todo-list-redux"
+        element={
+          <Provider store={TodoListReduxStore}>
+            <TodoListRedux />
+          </Provider>
+        }
+      />
+      <Route
+        path="/todo-list-redux-dnd"
+        element={
+          <Provider store={TodoListReduxDndStore}>
+            <TodoListRedux />
+          </Provider>
+        }
+      />
+      <Route path="*" element={<Navigate to="/todo-list-basic" />} />
+    </Routes>
   </div>
 );
 

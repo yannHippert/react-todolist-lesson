@@ -1,6 +1,6 @@
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { setName } from './ExampleSlice';
-import store from './store';
+import { setName } from '../ReduxExample/ExampleSlice';
+import store from '../ReduxExample/store';
 
 export default () => {
   return (
