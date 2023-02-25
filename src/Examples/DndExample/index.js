@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-const grid = 8;
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -35,6 +32,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
   return result;
 };
+const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -47,6 +45,11 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
   // styles we need to apply on draggables
   ...draggableStyle
+});
+const getListStyle = (isDraggingOver) => ({
+  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  padding: grid,
+  width: 250
 });
 
 function QuoteApp() {
@@ -79,10 +82,18 @@ function QuoteApp() {
 
   return (
     <div>
+      <button
+        type="button"
+        onClick={() => {
+          setState([...state, getItems(1)]);
+        }}
+      >
+        Add new item
+      </button>
       <div style={{ display: 'flex' }}>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.map((el, ind) => (
-            <Droppable key={ind} droppableId={`${ind}`}>
+            <Droppable key={`${ind}`} droppableId={`${ind}`}>
               {(provided, snapshot) => (
                 <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
                   {el.map((item, index) => (
@@ -110,5 +121,4 @@ function QuoteApp() {
   );
 }
 
-const rootElement = document.getElementById('root');
-ReactDOM.render(<QuoteApp />, rootElement);
+export default QuoteApp;

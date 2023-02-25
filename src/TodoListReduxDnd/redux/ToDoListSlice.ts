@@ -3,6 +3,7 @@ import { getRandomId } from '../utils/IdGenerator';
 import { ICategory, TCategoryId } from '../types/Category';
 import { IItem, IItemFields, TItemId } from '../types/Item';
 import { getItemById, validateMinLength, validateUniqueName, validateUniqueNameNotSelf } from './validations';
+import { reorder } from '../utils/DNDFunction';
 
 interface State {
   categories: Array<ICategory>;

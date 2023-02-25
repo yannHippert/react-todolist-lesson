@@ -34,19 +34,25 @@ const CategoryList = ({ category, onEditCategory, onAddItem, onEditItem }: Categ
       renderItem={(item: IItem, index: number) => (
         <Draggable key={item.id} draggableId={item.id} index={index}>
           {(provided, snapshot) => (
-            <List.Item
-              className="list-item"
-              actions={[
-                <Button type="primary" icon={<EditOutlined />} onClick={() => onEditItem(category.id, item.id)} />
-              ]}
-            >
+            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
               <Text>{item.name}</Text>
-            </List.Item>
+            </div>
           )}
         </Draggable>
       )}
     />
   );
 };
+
+/*
+   <List.Item
+                className="list-item"
+                actions={[
+                  <Button type="primary" icon={<EditOutlined />} onClick={() => onEditItem(category.id, item.id)} />
+                ]}
+              >
+                <Text>{item.name}</Text>
+              </List.Item>
+*/
 
 export default CategoryList;

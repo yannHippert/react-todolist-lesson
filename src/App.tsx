@@ -8,6 +8,8 @@ import TodoListRedux from './TodoListRedux';
 import { Provider } from 'react-redux';
 import TodoListReduxStore from './TodoListRedux/redux/store';
 import TodoListReduxDndStore from './TodoListReduxDnd/redux/store';
+import TodoListReduxDnd from './TodoListReduxDnd';
+import QuoteApp from './Examples/DndExample';
 
 const App = () => (
   <div className="app">
@@ -28,10 +30,11 @@ const App = () => (
         path="/todo-list-redux-dnd"
         element={
           <Provider store={TodoListReduxDndStore}>
-            <TodoListRedux />
+            <TodoListReduxDnd />
           </Provider>
         }
       />
+      <Route path="/dnd-example" element={<QuoteApp />} />
       <Route path="*" element={<Navigate to="/todo-list-basic" />} />
     </Routes>
   </div>

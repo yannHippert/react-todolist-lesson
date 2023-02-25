@@ -10,7 +10,8 @@ const menuItems = [
   { key: '/todo-list-with-design', label: 'With design' },
   { key: '/todo-list-edit', label: 'Edit' },
   { key: '/todo-list-redux', label: 'Redux' },
-  { key: '/todo-list-redux-dnd', label: 'DND' }
+  { key: '/todo-list-redux-dnd', label: 'DND' },
+  { key: '/dnd-example', label: 'DND Example' }
 ];
 
 const Navigation = () => {
