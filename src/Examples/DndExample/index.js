@@ -59,9 +59,8 @@ function QuoteApp() {
     const { source, destination } = result;
 
     // dropped outside the list
-    if (!destination) {
-      return;
-    }
+    if (!destination) return;
+
     const sInd = +source.droppableId;
     const dInd = +destination.droppableId;
 

@@ -9,10 +9,13 @@ import './TodoListReduxDnd.css';
 import CategoryModal from './CategoryModal/CategoryModal';
 import { useSelector } from 'react-redux';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useDispatch } from 'react-redux';
+import { onDragEnd } from './redux/ToDoListSlice';
 
 const { Title } = Typography;
 
 const ToDoListRedux = () => {
+  const dispatch = useDispatch();
   const grid = 8;
 
   const categories = useSelector((state: any) => state.list.categories);
@@ -58,7 +61,7 @@ const ToDoListRedux = () => {
   };
 
   const handleDragEnd = ({ source, destination }: any) => {
-    console.log({ source, destination });
+    dispatch(onDragEnd({ source, destination }));
   };
 
   const getListStyle = (isDraggingOver: boolean) => ({
@@ -94,12 +97,13 @@ const ToDoListRedux = () => {
       <div style={{ display: 'flex' }}>
         <DragDropContext onDragEnd={handleDragEnd}>
           {categories.map((category: ICategory) => (
-            <Droppable key={category.id} droppableId={`${category.id}`}>
+            <Droppable key={category.id} droppableId={category.id}>
               {(provided, snapshot) => (
                 <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
                   <h2>{category.name}</h2>
+                  <Button onClick={() => showAddItemModal(category.id)}>Add</Button>
                   {category.items.map((item: IItem, itemIndex) => (
-                    <Draggable key={itemIndex} draggableId={item.id} index={itemIndex}>
+                    <Draggable key={item.id} draggableId={item.id} index={itemIndex}>
                       {(provided, snapshot) => (
                         <div
                           ref={provided.innerRef}

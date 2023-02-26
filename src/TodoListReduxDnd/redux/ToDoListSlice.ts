@@ -3,7 +3,7 @@ import { getRandomId } from '../utils/IdGenerator';
 import { ICategory, TCategoryId } from '../types/Category';
 import { IItem, IItemFields, TItemId } from '../types/Item';
 import { getItemById, validateMinLength, validateUniqueName, validateUniqueNameNotSelf } from './validations';
-import { reorder } from '../utils/DNDFunction';
+import { reorder, move } from '../utils/DNDFunction';
 
 interface State {
   categories: Array<ICategory>;
@@ -76,10 +76,30 @@ export const toDoListSlice = createSlice({
     deleteItem: (state: State, action: { payload: { categoryId: TCategoryId; itemId: TItemId } }) => {
       const updatedCategory = getItemById<ICategory>(state.categories, action.payload.categoryId);
       updatedCategory.items = updatedCategory.items.filter(({ id }: IItem) => id !== action.payload.itemId);
+    },
+    onDragEnd: (state: State, action: { payload: { source: any; destination: any } }) => {
+      const { source, destination } = action.payload;
+
+      if (!destination) return;
+
+      const { droppableId: sourceId } = source;
+      const { droppableId: destinationId } = destination;
+      const sourceCategory = getItemById(state.categories, sourceId);
+      const destionationCategory = getItemById(state.categories, destinationId);
+
+      if (sourceId === destinationId) {
+        const items = reorder(sourceCategory.items, source.index, destination.index);
+        sourceCategory.items = items;
+      } else {
+        const result = move(sourceCategory.items, destionationCategory.items, source, destination);
+        sourceCategory.items = result[sourceCategory.id];
+        destionationCategory.items = result[destionationCategory.id];
+      }
     }
   }
 });
 
-export const { addCatgeory, updateCategory, deleteCategory, addItem, deleteItem, updateItem } = toDoListSlice.actions;
+export const { addCatgeory, updateCategory, deleteCategory, addItem, deleteItem, updateItem, onDragEnd } =
+  toDoListSlice.actions;
 
 export default toDoListSlice.reducer;
