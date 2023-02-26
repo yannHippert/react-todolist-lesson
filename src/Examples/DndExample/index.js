@@ -75,7 +75,7 @@ function QuoteApp() {
       newState[sInd] = result[sInd];
       newState[dInd] = result[dInd];
 
-      setState(newState.filter((group) => group.length));
+      setState(newState);
     }
   }
 

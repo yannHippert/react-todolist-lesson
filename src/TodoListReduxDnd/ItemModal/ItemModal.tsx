@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Space, Input, Select, Typography, Modal, Button, message as PopupMessage } from 'antd';
-import { ICategory, TCategoryId } from '../types/Category';
+import { Space, Input, Typography, Modal, Button, message as PopupMessage } from 'antd';
+import { TCategoryId } from '../types/Category';
 import { IItem } from '../types/Item';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addItem, deleteItem, updateItem } from '../redux/ToDoListSlice';
-import { useSelector } from 'react-redux';
 
 const { Text } = Typography;
 
@@ -19,7 +18,6 @@ export interface ItemModalProps {
 
 const ItemModal = ({ isOpen, onClose, initialCategoryId, item }: ItemModalProps) => {
   const dispatch = useDispatch();
-  const categories = useSelector((state: any) => state.list.categories);
   const [itemName, setItemName] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
@@ -39,8 +37,7 @@ const ItemModal = ({ isOpen, onClose, initialCategoryId, item }: ItemModalProps)
         dispatch(
           updateItem({
             categoryId: selectedCategory,
-            item: { ...item, name: itemName },
-            oldCategoryId: initialCategoryId
+            item: { ...item, name: itemName }
           })
         );
       }
@@ -81,10 +78,6 @@ const ItemModal = ({ isOpen, onClose, initialCategoryId, item }: ItemModalProps)
     setItemName(e.target.value);
   };
 
-  const handleChangeSelectedCategory = (e: any) => {
-    setSelectedCategory(e);
-  };
-
   const getTitle = (): string => {
     return (item ? 'Update' : 'Add') + ' item';
   };
@@ -115,16 +108,6 @@ const ItemModal = ({ isOpen, onClose, initialCategoryId, item }: ItemModalProps)
       <Space direction="vertical">
         <Text type="secondary">Item name:</Text>
         <Input placeholder="Item name" onChange={handleChangeItemName} value={itemName} />
-        <Text type="secondary">Category:</Text>
-        <Select
-          style={{ width: '100%' }}
-          onChange={handleChangeSelectedCategory}
-          value={selectedCategory}
-          options={categories.map((category: ICategory) => ({
-            value: category.id,
-            label: category.name
-          }))}
-        />
       </Space>
     </Modal>
   );

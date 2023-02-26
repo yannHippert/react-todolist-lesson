@@ -10,7 +10,7 @@ interface CategoryListProps {
   category: ICategory;
   onEditCategory: () => void;
   onAddItem: () => void;
-  onEditItem: (categoryId: string, itemId: string) => void;
+  onEditItem: (itemId: string) => void;
 }
 
 const CategoryList = ({ category, onEditCategory, onAddItem, onEditItem }: CategoryListProps) => {
@@ -35,7 +35,12 @@ const CategoryList = ({ category, onEditCategory, onAddItem, onEditItem }: Categ
         <Draggable key={item.id} draggableId={item.id} index={index}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-              <Text>{item.name}</Text>
+              <List.Item
+                className="list-item"
+                actions={[<Button type="primary" icon={<EditOutlined />} onClick={() => onEditItem(item.id)} />]}
+              >
+                <Text>{item.name}</Text>
+              </List.Item>
             </div>
           )}
         </Draggable>
@@ -43,16 +48,5 @@ const CategoryList = ({ category, onEditCategory, onAddItem, onEditItem }: Categ
     />
   );
 };
-
-/*
-   <List.Item
-                className="list-item"
-                actions={[
-                  <Button type="primary" icon={<EditOutlined />} onClick={() => onEditItem(category.id, item.id)} />
-                ]}
-              >
-                <Text>{item.name}</Text>
-              </List.Item>
-*/
 
 export default CategoryList;
